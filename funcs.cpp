@@ -40,6 +40,8 @@ void solver::process_output(vector<vector<int>> board) {
 }
 
 void solver::backtrack(unordered_map<int, unordered_set<int>> candidates, vector<vector<int>> board, bool done){
+    if(done) return
+    
 
 }
 
