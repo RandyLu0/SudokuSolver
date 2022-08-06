@@ -39,9 +39,35 @@ void solver::process_output(vector<vector<int>> board) {
     }
 }
 
-void solver::backtrack(unordered_map<int, unordered_set<int>> candidates, vector<vector<int>> board, bool done){
-    if(done) return
-    
-
+unordered_set<int> solver::getSqSet(int rawIndx, vector<vector<int>> board) {
+    unordered_set<int> result = {1,2,3,4,5,6,7,8,9};
+    // first get the current square's value
+    int row = rawIndx / 9;
+    int col = rawIndx % 9;
+    int currSqVal = board[row][col];
+    if (currSqVal != 0) { return {}; }
+    // get the neighboring cells from given the key (raw index)
+    for (int i = 0; i < 20; i++) {
+        int currRawIndx = neighbors[rawIndx][i];
+        int val = board[currRawIndx / 9][currRawIndx % 9];
+        if (val != 0 && result.find(val) != result.end()) { // and val exists in result set
+            result.erase(val);
+        }
+    }
+    return result;
 }
 
+unordered_map<int, unordered_set<int>> solver::pencil(vector<vector<int>> board) {
+    unordered_map<int, unordered_set<int>> squares;
+    unordered_set<int> candidates;
+    for (int row = 0; row < 9; row++){
+        for (int col = 0; col < 9; col++){
+            int rawIndx = (9 * (row)) + col; 
+            squares[rawIndx] = getSqSet(rawIndx, board);
+        }
+    }
+    return squares;
+}
+
+void solver::backtrack(unordered_map<int, unordered_set<int>> candidates, vector<vector<int>> board, bool done){
+}

@@ -137,7 +137,7 @@ public:
     void backtrack(unordered_map<int, unordered_set<int>> candidates, vector<vector<int>> board, bool done);
     //checks if board is valid
     bool check(vector<vector<int>> board);
-    unordered_set<int> solver::getSqSet(int rawIndx, vector<vector<int>> board);
+    unordered_set<int> getSqSet(int rawIndx, vector<vector<int>> board);
 };
 
 

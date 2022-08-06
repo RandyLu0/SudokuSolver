@@ -4,7 +4,11 @@
 #include <string>
 using std::cout;
 
-
+void printSet(unordered_set<int> set) {
+        for (auto x : set) {
+            cout << x << " "; 
+        }
+    }
 
 int main(){
     solver slvr;
@@ -17,7 +21,16 @@ int main(){
     //     cout << "\n";
     // }
 
-    slvr.process_output(input);
+    // slvr.process_output(input);
+    // cout << slvr.getSqSet(0, input).size() << "\n";
+
+    
+
+    for (auto elem : slvr.pencil(input)) {
+        cout << elem.first << ": ";
+        printSet(elem.second);
+        cout << "\n";
+    }
 
     return 0;
 }
