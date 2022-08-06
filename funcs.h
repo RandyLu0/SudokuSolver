@@ -2,6 +2,7 @@
 #define FUNCS_H
 
 #define INPUT "input.txt"
+#define OUTPUT "output.txt"
 
 #include <bits/stdc++.h>
 using std::vector;
