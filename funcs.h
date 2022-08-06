@@ -8,6 +8,7 @@
 using std::vector;
 using std::string;
 using std::unordered_map;
+using std::unordered_set;
 
 class solver{
     private:
@@ -127,7 +128,7 @@ public:
     vector<vector<int>> process_input();
     void process_output(vector<vector<int>> board);
     vector<vector<int>> solve(vector<vector<int>>);
-
+    unordered_map<int, unordered_set<int>> pencil(vector<vector<int>> board);
 };
 
 
