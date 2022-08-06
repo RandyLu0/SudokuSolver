@@ -125,7 +125,7 @@ class solver{
 
 public:
     vector<vector<int>> process_input();
-    void process_output(vector<vector<int>>);
+    void process_output(vector<vector<int>> board);
     vector<vector<int>> solve(vector<vector<int>>);
 
 };
