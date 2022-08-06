@@ -125,10 +125,16 @@ class solver{
 };
 
 public:
+    //reads input file and converts to 2d array representing board 
     vector<vector<int>> process_input();
+    //writes board to output file
     void process_output(vector<vector<int>> board);
+    //solves the board and returns it?
     vector<vector<int>> solve(vector<vector<int>>);
+    //generates a dictionary from entries to their candidates 
     unordered_map<int, unordered_set<int>> pencil(vector<vector<int>> board);
+    //modifies board in place and solves it by backtracking on candidates
+    void backtrack(unordered_map<int, unordered_set<int>> candidates, vector<vector<int>> board);
 };
 
 
