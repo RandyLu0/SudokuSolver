@@ -134,7 +134,7 @@ public:
     //generates a dictionary from entries to their candidates 
     unordered_map<int, unordered_set<int>> pencil(vector<vector<int>> board);
     //modifies board in place and solves it by backtracking on candidates
-    void backtrack(unordered_map<int, unordered_set<int>> candidates, vector<vector<int>> board);
+    void backtrack(unordered_map<int, unordered_set<int>> candidates, vector<vector<int>> board, bool done);
 };
 
 
