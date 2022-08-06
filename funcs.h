@@ -135,6 +135,7 @@ public:
     unordered_map<int, unordered_set<int>> pencil(vector<vector<int>> board);
     //modifies board in place and solves it by backtracking on candidates
     void backtrack(unordered_map<int, unordered_set<int>> candidates, vector<vector<int>> board, bool done);
+    unordered_set<int> solver::getSqSet(int rawIndx);
 };
 
 
