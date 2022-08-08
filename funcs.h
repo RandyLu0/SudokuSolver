@@ -134,10 +134,11 @@ public:
     //generates a dictionary from entries to their candidates 
     unordered_map<int, unordered_set<int>> pencil(vector<vector<int>> board);
     //modifies board in place and solves it by backtracking on candidates
-    void backtrack(unordered_map<int, unordered_set<int>> candidates, vector<vector<int>> board, bool done, int entry);
+    void backtrack(unordered_map<int, unordered_set<int>> candidates, vector<vector<int>>& board);
     //checks if board is valid
     bool check(vector<vector<int>> board);
-    unordered_set<int> getSqSet(int rawIndx, vector<vector<int>> board);
+    //checks if board is solved
+    bool done(const vector<vector<int>>& board) const;
 };
 
 

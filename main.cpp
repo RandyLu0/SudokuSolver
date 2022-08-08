@@ -1,7 +1,4 @@
 #include "funcs.h"
-#include <iostream>
-#include <fstream>
-#include <string>
 using std::cout;
 
 void printSet(unordered_set<int> set) {
@@ -13,24 +10,23 @@ void printSet(unordered_set<int> set) {
 int main(){
     solver slvr;
     vector<vector<int>> input = slvr.process_input();
-    
-    // for( int i =0 ; i < 9; i ++) {
-    //     for (int j = 0; j < 9; j++) {
-    //         cout << input[i][j] << " ";
-    //     }
-    //     cout << "\n";
-    // }
+    /*
+    cout << slvr.check(input) << "\n";
+    unordered_map<int, unordered_set<int>> a = slvr.pencil(input);
+    for(auto x : a){
+        cout << x.first << ": ";
+        printSet(x.second);
+        cout << "\n";
+    }
+    */
+    slvr.backtrack(slvr.pencil(input), input);
+    slvr.process_output(input);
 
     // slvr.process_output(input);
     // cout << slvr.getSqSet(0, input).size() << "\n";
 
     
 
-    for (auto elem : slvr.pencil(input)) {
-        cout << elem.first << ": ";
-        printSet(elem.second);
-        cout << "\n";
-    }
 
     return 0;
 }
