@@ -10,8 +10,10 @@ void printSet(unordered_set<int> set) {
 int main(){
     solver slvr;
     vector<vector<int>> input = slvr.process_input();
-    /*
-    cout << slvr.check(input) << "\n";
+    slvr.process_output(input);
+    
+    /* 
+    //prints candidates
     unordered_map<int, unordered_set<int>> a = slvr.pencil(input);
     for(auto x : a){
         cout << x.first << ": ";
@@ -19,8 +21,9 @@ int main(){
         cout << "\n";
     }
     */
+
     slvr.backtrack(slvr.pencil(input), input);
-    slvr.process_output(input);
+    //slvr.process_output(input);
 
     // slvr.process_output(input);
     // cout << slvr.getSqSet(0, input).size() << "\n";
