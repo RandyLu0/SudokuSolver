@@ -11,7 +11,7 @@ int main(){
     solver slvr;
     Board input = slvr.process_input();
     Candidates candidates = slvr.pencil(input);
-    slvr.n_singles(candidates, input, 0);
+    slvr.n_singles(candidates, input,0);
 
 
     //prints candidates

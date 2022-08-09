@@ -99,4 +99,30 @@ void solver::n_singles(Candidates &candidates, Board& board, int start){
     }
 }
 
+void solver::h_singles(Candidates &candidates, Board& board, int start) {
+    for (int group = 0; group < 27; ++group) {
+        unordered_map<int, int> frequencies;
+        for (int i = 0; i < 9; ++i)
+            for (int candidate : candidates[groups[group][i]]) {
+                if(frequencies.count(candidate) == 0) frequencies[candidate] = 1;
+                else frequency[candidate] += 1;
+            }
+        for (int candidate: frequencies) {
+            if(frequencies[candidate] == 1){
+                for(int i = 0; i < 9; i++){
+                    if(candidates[groups[group][i]].count(candidate) == 1){
+                        board[i / 9][i % 9] = candidate;
+                        candidates[groups[group][i]].clear();
+                        for (int j = 0; j < 20; ++j) {
+                            candidates[neighbers[i][j]].erase(candidate);
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+
+
 
