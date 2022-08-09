@@ -9,20 +9,21 @@ void printSet(unordered_set<int> set) {
 
 int main(){
     solver slvr;
-    vector<vector<int>> input = slvr.process_input();
-    slvr.process_output(input);
-    
-    /* 
+    Board input = slvr.process_input();
+    Candidates candidates = slvr.pencil(input);
+    slvr.n_singles(candidates, input, 0);
+
+
     //prints candidates
-    unordered_map<int, unordered_set<int>> a = slvr.pencil(input);
-    for(auto x : a){
+    for(auto x : candidates){
         cout << x.first << ": ";
         printSet(x.second);
         cout << "\n";
     }
-    */
+    slvr.process_output(input);
 
-    slvr.backtrack(slvr.pencil(input), input);
+
+    //slvr.backtrack(slvr.pencil(input), input);
     //slvr.process_output(input);
 
     // slvr.process_output(input);

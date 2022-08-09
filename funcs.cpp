@@ -85,6 +85,18 @@ void solver::backtrack(unordered_map<int, unordered_set<int>> candidates, vector
     }
 }
 
-void solver::nsingles(unordered_map<int, unordered_set<int>> candidates, vector<vector<int>>& board){
-    
+void solver::n_singles(Candidates &candidates, Board& board, int start){
+    for (int index = start; index < 80; index++) {
+        if(candidates[index].size() == 1){
+            int entry = board[index / 9][index % 9] = *candidates[index].begin();
+            candidates[index].clear();
+            for (int i = 0; i < 20; ++i) {
+                int neighbor = neighbors[index][i];
+                candidates[neighbor].erase(entry);
+                if(candidates[neighbor].size() == 1) n_singles(candidates, board, neighbor);
+            }
+        }
+    }
 }
+
+
