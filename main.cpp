@@ -8,10 +8,9 @@ void printSet(unordered_set<int> set) {
 }
 
 int main(){
-    solver slvr;
-    Board input = slvr.process_input();
-    Candidates candidates = slvr.pencil(input);
-    //slvr.n_singles(candidates, input,0);
+    Board input = process_input();
+    //Candidates candidates = pencil(input);
+    //n_singles(candidates, input,0);
 
 /*
     //prints candidates
@@ -20,15 +19,14 @@ int main(){
         printSet(x.second);
         cout << "\n";
     }
-    slvr.process_output(input);
+    process_output(input);
 */
 
-    //slvr.backtrack(slvr.pencil(input), input);
-    slvr.process_output(input);
-    cout << slvr.done(input) << "\n";
+    backtrack(pencil(input), input);
+    //process_output(input);
 
-    // slvr.process_output(input);
-    // cout << slvr.getSqSet(0, input).size() << "\n";
+    // process_output(input);
+    // cout << getSqSet(0, input).size() << "\n";
 
     
 
