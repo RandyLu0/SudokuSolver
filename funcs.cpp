@@ -1,35 +1,36 @@
 #include "funcs.h"
-using std::cout;
-using std::freopen;
 using std::getline;
-using std::cin;
+using std::ofstream;
+using std::ifstream;
 
-vector<vector<int>> solver::process_input(){
-    freopen(INPUT, "r", stdin);
-    vector<vector<int>> board;
+Board solver::process_input(){
+    ifstream file(INPUT);
+    Board board;
+    string line = "";
     for(int i = 0; i < 9; i++){
-        string line = "";
-        getline(cin, line);
+        getline(file, line);
         vector<int> row;
         for(char c : line) if(c != ',') row.push_back(c - 48);
         board.push_back(row);
     }
+    file.close();
     return board;
 }
 
-void solver::process_output(vector<vector<int>> board) {
-    freopen(OUTPUT, "w", stdout);
+void solver::process_output(Board board) {
+    ofstream file(OUTPUT);
     for (int i = 0; i < 9; i++) {
         for (int j = 0; j < 9; j++) {
-            cout << board[i][j];
-            if (j != 8) cout << ",";
+            file << board[i][j];
+            if (j != 8) file << ",";
         }
-        cout << "\n";
+        file << "\n";
     }
+    file.close();
 }
 
-unordered_map<int, unordered_set<int>> solver::pencil(vector<vector<int>> board) {
-    unordered_map<int, unordered_set<int>> penciled;
+Candidates solver::pencil(Board board) {
+    Candidates penciled;
     for (int i = 0; i < 9; i++){
         for (int j = 0; j < 9; j++){
             unordered_set<int> candidates = {1,2,3,4,5,6,7,8,9};
@@ -47,7 +48,8 @@ unordered_map<int, unordered_set<int>> solver::pencil(vector<vector<int>> board)
     return penciled;
 }
 
-bool solver::done(vector<vector<int>> board){
+/*
+bool solver::done(Board board){
     for(int group = 0; group < 27; group++){
         unordered_set<int> entries;
         for(int i = 0; i < 9; i++){
@@ -61,7 +63,22 @@ bool solver::done(vector<vector<int>> board){
     return true;
 }
 
-void solver::backtrack(unordered_map<int, unordered_set<int>> candidates, vector<vector<int>>& board){
+*/
+bool solver::done(Board board){
+    for(int group = 0; group < 27; group++){
+        ll entries = 0;
+        for(int i = 0; i < 9; i++){
+            int index = groups[group][i];
+            int entry = board[index / 9][index % 9];
+            if(entry == 0) return false;
+            entries += 1 << entry;
+        }
+        if(entries != (1 << 10) - 2) return false;
+    }
+    return true;
+}
+
+void solver::backtrack(Candidates candidates, Board& board){
     if(done(board)) process_output(board);
     for(int i = 0; i < 9; i++){
         for(int j = 0; j < 9; j++){
@@ -102,19 +119,20 @@ void solver::n_singles(Candidates &candidates, Board& board, int start){
 void solver::h_singles(Candidates &candidates, Board& board, int start) {
     for (int group = 0; group < 27; ++group) {
         unordered_map<int, int> frequencies;
+        for (int i = 0; i < 9; ++i) frequencies[i + 1] = 0;
         for (int i = 0; i < 9; ++i)
             for (int candidate : candidates[groups[group][i]]) {
                 if(frequencies.count(candidate) == 0) frequencies[candidate] = 1;
-                else frequency[candidate] += 1;
+                else frequencies[candidate] += 1;
             }
-        for (int candidate: frequencies) {
+        for (int candidate = 1; candidate <= 9; candidate++) {
             if(frequencies[candidate] == 1){
                 for(int i = 0; i < 9; i++){
                     if(candidates[groups[group][i]].count(candidate) == 1){
                         board[i / 9][i % 9] = candidate;
                         candidates[groups[group][i]].clear();
                         for (int j = 0; j < 20; ++j) {
-                            candidates[neighbers[i][j]].erase(candidate);
+                            candidates[neighbors[i][j]].erase(candidate);
                         }
                     }
                 }
@@ -122,7 +140,3 @@ void solver::h_singles(Candidates &candidates, Board& board, int start) {
         }
     }
 }
-
-
-
-

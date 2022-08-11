@@ -12,6 +12,7 @@ using std::unordered_map;
 using std::unordered_set;
 using Board = vector<vector<int>>;
 using Candidates = unordered_map<int, unordered_set<int>>;
+typedef unsigned long long ll;
 
 class solver{
 public:
@@ -29,12 +30,14 @@ public:
     bool done(Board board);
     //implements naked singles logic in place
     void n_singles(Candidates &candidates, Board& board, int start);
-    void h_singles(Candidates &candidates, Board& board, int start){
+    void h_singles(Candidates &candidates, Board& board, int start);
         /*
          * for each group we create a map of all the candidates to their frequency
          * if one of them is 1 then we know it is a hidden single and we can loop to find it
          * if two of them are two then we know it is a hidden/naked pair
          */
+
+        //improve checking logic by using bit manipulations
 private:
     int groups[27][9] = {{0,1,2,3,4,5,6,7,8},
 {9,10,11,12,13,14,15,16,17},
