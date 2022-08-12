@@ -16,9 +16,6 @@ typedef unsigned long long ll;
 vector<ll> process_input();
 //writes board to output file
 void process_output(const vector<ll> &board);
-
-//solves the board and returns it?
-vector<vector<int>> solve(vector<vector<int>>);
 //generates a dictionary from entries to their candidates
 vector<ll> pencil(const vector<ll> &board);
 //modifies board in place by solving it via backtracking then writes solution to output file
@@ -27,6 +24,8 @@ void backtrack(vector<ll> candidates, vector<ll>& board);
 bool done(const vector<ll> &board);
 //implements naked singles logic in place
 void n_singles(vector<ll> &candidates, vector<ll> &board, int start);
+//solves the board and returns it?
+vector<vector<int>> solve(vector<vector<int>>);
 /*
 //implements hidden singles logic in place
 void h_singles(vector<ll> &candidates, Board& board, int start);
