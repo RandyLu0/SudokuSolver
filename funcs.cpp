@@ -190,15 +190,15 @@ void backtrack(vector<ll> candidates, vector<ll>& board){
     }
 }
 
-//close... idk... need to compare with old one
+
 void n_singles(vector<ll> &candidates, vector<ll> &board, int start){
     for (int index = start; index < 81; index++) {
         if(POW_2(candidates[index])){
             for(int i=1;i<=9;i++) if(candidates[index] == (1 << i)) board[index] = i;
             candidates[index] = 0;
             for (int i = 0; i < 20; ++i) {
-                int neighbor = neighbors[index][i];
-                if(candidates[neighbor] > (1 << board[index])) candidates[neighbor] -= 1 << board[index];
+                int neighbor = neighbors[index][i], entry = 1 << board[index];
+                if((candidates[neighbor] & entry) == entry) candidates[neighbor] -= entry;
                 if(POW_2(candidates[neighbor])) n_singles(candidates, board, neighbor);
             }
         }

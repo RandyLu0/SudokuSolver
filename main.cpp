@@ -11,8 +11,8 @@ int main(){
     for(int i = 0; i < 81;i++)
         cout << i << ": " << candidates[i] << "\n";
 
-    backtrack(pencil(input), input);
-    //process_output(input);
+    //backtrack(pencil(input), input);
+    process_output(input);
     //cout << done(input) << "\n";
 
     // process_output(input);
