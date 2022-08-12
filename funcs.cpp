@@ -141,20 +141,19 @@ void process_output(Board board) {
     file.close();
 }
 
-Candidates pencil(Board board) {
-    Candidates penciled;
+vector<ll> pencil(Board board) {
+    vector<ll> penciled;
     for (int i = 0; i < 9; i++){
         for (int j = 0; j < 9; j++){
-            unordered_set<int> candidates = {1,2,3,4,5,6,7,8,9};
-            if(board[i][j] != 0) candidates.clear(); 
+            ll candidates = (1 << 10) - 2;
+            if(board[i][j] != 0) candidates = 0; 
             else 
                 for(int k = 0; k < 20; k++){
-                    int neighbor = neighbors[9 * i + j][k];
-                    if(candidates.count(board[neighbor / 9][neighbor % 9]) > 0){
-                        candidates.erase(board[neighbor / 9][neighbor % 9]);
-                    }
+                    int neighbor = neighbors[9*i+j][k];
+                    int entry = board[neighbor / 9][neighbor % 9];
+                    if((candidates & 1 << entry) != 0) candidates -= 1 << entry;
                 }
-            penciled[9 * i + j] = candidates;
+            penciled.push_back(candidates);
         }
     }
     return penciled;
@@ -174,22 +173,24 @@ bool done(Board board){
     return true;
 }
 
-void backtrack(Candidates candidates, Board& board){
+void backtrack(vector<ll> candidates, Board& board){
     if(done(board)) process_output(board);
     for(int i = 0; i < 9; i++){
         for(int j = 0; j < 9; j++){
             if(board[i][j] == 0){
-                for(int candidate : candidates[9 * i + j]){
-                    board[i][j] = candidate;
-                    //checks to see if candidate is valid
-                    ll used = 0;
-                    for(int k = 0; k < 20; k++){
-                        int index = neighbors[9*i+j][k];
-                        int entry = board[index / 9][index % 9];
-                        if((used & 1 << entry) == 0) used += 1 << entry;
+                for(int candidate = 1; candidate <= 9; candidate++){
+                    if((candidates[9*i+j] & 1 << candidate) != 0){
+                         board[i][j] = candidate;
+                        //checks to see if candidate is valid
+                        ll used = 0;
+                        for(int k = 0; k < 20; k++){
+                            int index = neighbors[9*i+j][k];
+                            int entry = board[index / 9][index % 9];
+                            if((used & 1 << entry) == 0) used += 1 << entry;
+                        }
+                        //if valid then onto next cell
+                        if((used & 1 << candidate) == 0) backtrack(candidates, board);
                     }
-                    //if valid then onto next cell
-                    if((used & 1 << candidate) == 0) backtrack(candidates, board);
                 }
                 //reset and go back one cell
                 board[i][j] = 0;
@@ -199,7 +200,8 @@ void backtrack(Candidates candidates, Board& board){
     }
 }
 
-void n_singles(Candidates &candidates, Board& board, int start){
+/*
+void n_singles(vector<ll> &candidates, Board& board, int start){
     for (int index = start; index < 80; index++) {
         if(candidates[index].size() == 1){
             int entry = board[index / 9][index % 9] = *candidates[index].begin();
@@ -213,7 +215,8 @@ void n_singles(Candidates &candidates, Board& board, int start){
     }
 }
 
-void h_singles(Candidates &candidates, Board& board, int start) {
+
+void h_singles(vector<ll> &candidates, Board& board, int start) {
     for (int group = 0; group < 27; ++group) {
         unordered_map<int, int> frequencies;
         for (int i = 0; i < 9; ++i) frequencies[i + 1] = 0;
@@ -237,3 +240,4 @@ void h_singles(Candidates &candidates, Board& board, int start) {
         }
     }
 }
+*/
