@@ -24,8 +24,7 @@ void backtrack(vector<ll> candidates, vector<ll>& board);
 bool done(const vector<ll> &board);
 //implements naked singles logic in place
 void n_singles(vector<ll> &candidates, vector<ll> &board, int start);
-//solves the board and returns it?
-vector<vector<int>> solve(vector<vector<int>>);
+ll num_solutions();
 /*
 //implements hidden singles logic in place
 void h_singles(vector<ll> &candidates, Board& board, int start);

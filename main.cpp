@@ -17,6 +17,7 @@ int main(){
 
     // process_output(input);
     // cout << getSqSet(0, input).size() << "\n";
+    cout << num_solutions() << "\n";
 
     
 

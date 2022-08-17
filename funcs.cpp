@@ -115,7 +115,9 @@ unordered_map<int, vector<int>> neighbors = {
         {80, {8, 17, 26, 35, 44, 53, 60, 61, 62, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79}}
 };
 
-ll num_solutions = 0;
+ll num = 0;
+
+ll num_solutions(){ return num; }
 
 vector<ll> process_input(){
     ifstream file(INPUT);
@@ -173,7 +175,7 @@ bool done(const vector<ll> &board){
 void backtrack(vector<ll> candidates, vector<ll>& board){
     if(done(board)){
         process_output(board);
-        num_solutions++;
+        num++;
         return;
     }
     for(int i = 0; i < 81; i++){
